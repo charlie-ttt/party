@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Card from "../../src/components/Card";
 import Container from "@mui/material/Container";
+import Link from "../../src/Link";
 import type { NextPage } from "next";
 import NoAuth from "../../src/components/NoAuth";
 import { supabaseClient } from "@supabase/auth-helpers-nextjs";
@@ -24,7 +26,6 @@ const Parties: NextPage = () => {
       const { data } = await supabaseClient.from("parties").select(`
         id, name, capacity, parties_users ( user_id )
       `);
-      console.log("🚀 ~ data", data);
       if (data) {
         const formattedData: Party[] = data.map(
           ({ id, name, capacity, parties_users }) => ({
@@ -46,6 +47,17 @@ const Parties: NextPage = () => {
 
   return (
     <Container maxWidth="lg">
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Button component={Link} noLinkStyle href="/parties/create">
+          Create New Party
+        </Button>
+      </Box>
       <Box
         sx={{
           my: 4,

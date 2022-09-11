@@ -7,6 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import MuiCard from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
+import { useRouter } from "next/router";
 
 interface CardProps {
   id: string;
@@ -23,6 +24,8 @@ export default function Card({
   currentCapacity,
   userId,
 }: CardProps) {
+  const router = useRouter();
+
   const handleJoin = async (partyId: string) => {
     const rawResponse = await fetch("/api/parties/join", {
       method: "POST",
@@ -38,6 +41,7 @@ export default function Card({
     }
     if (data) {
       alert("Joined party successfully");
+      router.reload();
     }
   };
   return (
