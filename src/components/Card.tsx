@@ -53,7 +53,7 @@ export default function Card({
         alt="partyimage"
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography noWrap gutterBottom component="div">
           {name}
         </Typography>
       </CardContent>
