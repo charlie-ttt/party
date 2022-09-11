@@ -41,12 +41,8 @@ const About: NextPage = () => {
       email: inputs.email,
       password: inputs.password,
     });
-    if (error) {
-      setErrorMessage(error.message);
-    }
-    if (user) {
-      router.push("/login");
-    }
+    if (error) setErrorMessage(error.message);
+    if (user) router.push("/login");
   };
 
   return (

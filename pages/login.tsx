@@ -30,17 +30,12 @@ const About: NextPage = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(inputs);
     const { user, error } = await supabaseClient.auth.signIn({
       email: inputs.email,
       password: inputs.password,
     });
-    if (error) {
-      setErrorMessage(error.message);
-    }
-    if (user) {
-      router.push("/parties");
-    }
+    if (error) setErrorMessage(error.message);
+    if (user) router.push("/parties");
   };
 
   return (
