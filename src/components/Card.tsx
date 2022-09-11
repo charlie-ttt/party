@@ -50,7 +50,7 @@ export default function Card({
         component="img"
         height="300"
         image="/partyimage.jpeg"
-        alt="green iguana"
+        alt="partyimage"
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">

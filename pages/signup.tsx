@@ -5,8 +5,10 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import Container from "@mui/material/Container";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import type { NextPage } from "next";
 import TextField from "@mui/material/TextField";
+import { Typography } from "@mui/material";
 import { supabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/router";
 
@@ -56,49 +58,67 @@ const About: NextPage = () => {
           alignItems: "center",
         }}
       >
+        <Typography variant="h6" gutterBottom>
+          สร้างบัญชีผู้ใช้
+        </Typography>
         <form onSubmit={handleSubmit}>
-          <Box>
-            <TextField
-              required
-              name="email"
-              value={inputs.email}
-              label="อีเมล"
-              placeholder="demo@email.com"
-              autoComplete="username"
-              onChange={handleChange}
-            />
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 2,
+              mt: 4,
+            }}
+          >
+            <Box>
+              <TextField
+                required
+                name="email"
+                value={inputs.email}
+                label="อีเมล"
+                placeholder="demo@email.com"
+                autoComplete="username"
+                onChange={handleChange}
+              />
+            </Box>
+            <Box>
+              <TextField
+                required
+                name="password"
+                value={inputs.password}
+                label="รหัสผ่าน"
+                type="password"
+                placeholder="*****"
+                autoComplete="current-password"
+                onChange={handleChange}
+              />
+            </Box>
+            <Box>
+              <TextField
+                required
+                name="password_confirmation"
+                value={inputs.password_confirmation}
+                label="ยืนยันรหัสผ่าน"
+                type="password"
+                placeholder="*****"
+                autoComplete="current-password"
+                onChange={handleChange}
+              />
+            </Box>
+            <Box>
+              <FormControlLabel
+                control={<Checkbox required />}
+                label="ฉันยอมรับเงื่อนไข"
+                labelPlacement="end"
+              />
+            </Box>
+            {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
+            <Button variant="contained" size="medium" type="submit">
+              ยืนยัน
+            </Button>
           </Box>
-          <Box>
-            <TextField
-              required
-              name="password"
-              value={inputs.password}
-              label="รหัสผ่าน"
-              type="password"
-              placeholder="*****"
-              autoComplete="current-password"
-              onChange={handleChange}
-            />
-          </Box>
-          <Box>
-            <TextField
-              required
-              name="password_confirmation"
-              value={inputs.password_confirmation}
-              label="ยืนยันรหัสผ่าน"
-              type="password"
-              placeholder="*****"
-              autoComplete="current-password"
-              onChange={handleChange}
-            />
-          </Box>
-          <Box>
-            <Checkbox required />
-          </Box>
-          {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
-          <Button variant="contained" size="medium" type="submit">
-            ยืนยัน
-          </Button>
         </form>
       </Box>
     </Container>

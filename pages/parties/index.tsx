@@ -7,6 +7,7 @@ import Container from "@mui/material/Container";
 import Link from "../../src/Link";
 import type { NextPage } from "next";
 import NoAuth from "../../src/components/NoAuth";
+import SignOutButton from "../../src/components/SignOutButton";
 import { supabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useUser } from "@supabase/auth-helpers-react";
 
@@ -57,6 +58,7 @@ const Parties: NextPage = () => {
         <Button component={Link} noLinkStyle href="/parties/create">
           Create New Party
         </Button>
+        <SignOutButton />
       </Box>
       <Box
         sx={{

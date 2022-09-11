@@ -6,6 +6,7 @@ import Link from "../../src/Link";
 import type { NextPage } from "next";
 import NoAuth from "../../src/components/NoAuth";
 import TextField from "@mui/material/TextField";
+import { Typography } from "@mui/material";
 import { useState } from "react";
 import { useUser } from "@supabase/auth-helpers-react";
 
@@ -72,7 +73,10 @@ const CreateParty: NextPage = () => {
           alignItems: "center",
         }}
       >
-        Create Party
+        <Typography variant="h6" gutterBottom>
+          Create Party
+        </Typography>
+
         <form onSubmit={handleSubmit}>
           <Box>
             <TextField
@@ -102,6 +106,7 @@ const CreateParty: NextPage = () => {
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
+              mt: 2,
             }}
           >
             <Button variant="contained" type="submit">
