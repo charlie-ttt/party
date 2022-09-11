@@ -23,6 +23,21 @@ async function createParty(
   ) {
     return res.status(400).json({ data: null, error: "Invalid Input" });
   }
+  if (name.length > 15) {
+    return res
+      .status(400)
+      .json({ data: null, error: "name should not exceed 15 characters" });
+  }
+  if (capacity > 20) {
+    return res
+      .status(400)
+      .json({ data: null, error: "capacity should not exceed 20 seats" });
+  }
+  if (capacity <= 0) {
+    return res
+      .status(400)
+      .json({ data: null, error: "capacity should be more than 1 seat" });
+  }
 
   const { data, error } = await supabaseClient
     .from("parties")
