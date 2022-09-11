@@ -8,6 +8,7 @@ import CardMedia from "@mui/material/CardMedia";
 import MuiCard from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 interface CardProps {
   id: string;
@@ -25,8 +26,10 @@ export default function Card({
   userId,
 }: CardProps) {
   const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleJoin = async (partyId: string) => {
+    setLoading(true);
     const rawResponse = await fetch("/api/parties/join", {
       method: "POST",
       headers: {
@@ -43,6 +46,7 @@ export default function Card({
       alert("Joined party successfully");
       router.reload();
     }
+    setLoading(false);
   };
   return (
     <MuiCard sx={{ width: 170 }}>
@@ -72,6 +76,7 @@ export default function Card({
             size="small"
             variant="contained"
             onClick={() => handleJoin(id)}
+            disabled={loading}
           >
             Join
           </Button>
