@@ -30,17 +30,12 @@ const About: NextPage = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(inputs);
     const { user, error } = await supabaseClient.auth.signIn({
       email: inputs.email,
       password: inputs.password,
     });
-    if (error) {
-      setErrorMessage(error.message);
-    }
-    if (user) {
-      router.push("/parties");
-    }
+    if (error) setErrorMessage(error.message);
+    if (user) router.push("/parties");
   };
 
   return (
@@ -55,49 +50,61 @@ const About: NextPage = () => {
         }}
       >
         <form onSubmit={handleSubmit}>
-          <Box>
-            <TextField
-              required
-              name="email"
-              value={inputs.email}
-              label="อีเมล"
-              placeholder="demo@email.com"
-              autoComplete="username"
-              onChange={handleChange}
-            />
-          </Box>
-          <Box>
-            <TextField
-              required
-              name="password"
-              value={inputs.password}
-              label="รหัสผ่าน"
-              type="password"
-              placeholder="*****"
-              autoComplete="current-password"
-              onChange={handleChange}
-            />
-          </Box>
           <Box
             sx={{
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
+              gap: 2,
+              mt: 4,
             }}
           >
-            <Button variant="contained" type="submit">
-              เข้าสู่ระบบ
-            </Button>
-            <Button
-              variant="contained"
-              component={Link}
-              noLinkStyle
-              href="/signup"
+            <Box>
+              <TextField
+                required
+                name="email"
+                value={inputs.email}
+                label="อีเมล"
+                placeholder="demo@email.com"
+                autoComplete="username"
+                onChange={handleChange}
+              />
+            </Box>
+            <Box>
+              <TextField
+                required
+                name="password"
+                value={inputs.password}
+                label="รหัสผ่าน"
+                type="password"
+                placeholder="*****"
+                autoComplete="current-password"
+                onChange={handleChange}
+              />
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: 1.5,
+              }}
             >
-              สร้างบัญชีผู้ใช้
-            </Button>
-            {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
+              <Button variant="contained" type="submit">
+                เข้าสู่ระบบ
+              </Button>
+              <Button
+                variant="contained"
+                component={Link}
+                noLinkStyle
+                href="/signup"
+              >
+                สร้างบัญชีผู้ใช้
+              </Button>
+              {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
+            </Box>
           </Box>
         </form>
       </Box>
