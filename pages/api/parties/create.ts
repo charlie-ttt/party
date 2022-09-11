@@ -2,13 +2,14 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 import { supabaseClient } from "@supabase/auth-helpers-nextjs";
 
-type Data = {
-  message: string;
-};
+interface Response {
+  data: null | string;
+  error: null | string;
+}
 
-export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+export default async (req: NextApiRequest, res: NextApiResponse<Response>) => {
   if (req.method !== "POST") {
-    return res.status(404).json({ message: "Not Found" });
+    return res.status(404).json({ data: null, error: "Not Found" });
   }
   const { name, capacity } = req.body;
   if (
@@ -17,7 +18,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     typeof name !== "string" ||
     typeof capacity !== "number"
   ) {
-    return res.status(400).json({ message: "Invalid Input" });
+    return res.status(400).json({ data: null, error: "Invalid Input" });
   }
 
   const { data, error } = await supabaseClient
@@ -25,10 +26,11 @@ export default async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     .insert([{ name, capacity }]);
 
   if (error) {
-    return res.status(500).json({ message: error.message });
+    return res.status(500).json({ data: null, error: error.message });
   }
 
-  res
-    .status(200)
-    .json({ message: `Successfully created party id: ${data[0]?.id}` });
+  res.status(200).json({
+    data: `Successfully created party id: ${data[0]?.id}`,
+    error: null,
+  });
 };
