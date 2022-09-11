@@ -7,7 +7,7 @@ interface Response {
   error: null | string;
 }
 
-export default async (req: NextApiRequest, res: NextApiResponse<Response>) => {
+async function joinParty(req: NextApiRequest, res: NextApiResponse<Response>) {
   if (req.method !== "POST") {
     return res.status(404).json({ data: null, error: "Not Found" });
   }
@@ -48,10 +48,10 @@ export default async (req: NextApiRequest, res: NextApiResponse<Response>) => {
     data: `Join party successfully: (id: reference ${data[0]?.id})`,
     error: null,
   });
-};
+}
 
 async function getCurrentCapacity(partyId: string): Promise<number> {
-  const { data, error, count } = await supabaseClient
+  const { error, count } = await supabaseClient
     .from("parties_users")
     .select("*", { count: "exact" })
     .eq("party_id", partyId);
@@ -68,3 +68,5 @@ async function getMaxCapacity(partyId: string): Promise<number> {
   if (error) console.error(error);
   return data.capacity;
 }
+
+export default joinParty;

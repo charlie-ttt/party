@@ -7,7 +7,10 @@ interface Response {
   error: null | string;
 }
 
-export default async (req: NextApiRequest, res: NextApiResponse<Response>) => {
+async function createParty(
+  req: NextApiRequest,
+  res: NextApiResponse<Response>
+) {
   if (req.method !== "POST") {
     return res.status(404).json({ data: null, error: "Not Found" });
   }
@@ -33,4 +36,6 @@ export default async (req: NextApiRequest, res: NextApiResponse<Response>) => {
     data: `Successfully created party id: ${data[0]?.id}`,
     error: null,
   });
-};
+}
+
+export default createParty;
