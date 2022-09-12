@@ -20,7 +20,7 @@ interface Party {
 
 const Parties: NextPage = () => {
   const [parties, setParties] = useState<Party[]>([]);
-  const { user } = useUser();
+  const { user, isLoading } = useUser();
 
   useEffect(() => {
     async function loadData() {
@@ -44,6 +44,7 @@ const Parties: NextPage = () => {
     }
   }, [user]);
 
+  if (isLoading) return <>Loading</>;
   if (!user) return <NoAuth />;
 
   return (
@@ -53,9 +54,15 @@ const Parties: NextPage = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          mt: 2,
         }}
       >
-        <Button component={Link} noLinkStyle href="/parties/create">
+        <Button
+          component={Link}
+          variant="outlined"
+          noLinkStyle
+          href="/parties/create"
+        >
           Create New Party
         </Button>
         <SignOutButton />

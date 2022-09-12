@@ -11,7 +11,7 @@ import { useState } from "react";
 import { useUser } from "@supabase/auth-helpers-react";
 
 const CreateParty: NextPage = () => {
-  const { user } = useUser();
+  const { user, isLoading } = useUser();
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [inputs, setInputs] = useState<{
     name: string;
@@ -49,6 +49,7 @@ const CreateParty: NextPage = () => {
     }
   };
 
+  if (isLoading) return <>Loading</>;
   if (!user) return <NoAuth />;
 
   return (
@@ -58,9 +59,10 @@ const CreateParty: NextPage = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          mt: 2,
         }}
       >
-        <Button component={Link} noLinkStyle href="/parties">
+        <Button component={Link} variant="outlined" noLinkStyle href="/parties">
           See All Parties
         </Button>
       </Box>
