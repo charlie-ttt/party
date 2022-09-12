@@ -7,7 +7,8 @@ npm install
 npm run dev
 ```
 
-Backend is implemented using [Supabase](https://supabase.com) free tier.
+- Live website is hosted at https://party-three.vercel.app/
+- Backend is implemented using [Supabase](https://supabase.com) free tier.
 
 Environment variables are needed for the app to function. See .env.local.example
 
